@@ -1,3 +1,17 @@
+import { getComponentConfig } from '../../utils'
+
+const defaultProps = {
+  component: 'button',
+}
+
+const defaultTheme = {}
+
 export default props => {
-  return <button>{props.children}</button>
+  const { Component, componentProps } = getComponentConfig(
+    'button',
+    props,
+    defaultProps,
+    defaultTheme
+  )
+  return <Component {...componentProps}>{props.children}</Component>
 }
