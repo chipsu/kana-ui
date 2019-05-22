@@ -11,3 +11,4 @@ storiesOf('Button', module)
       </span>
     </Button>
   ))
+  .add('padding test', () => <Button padding="lg">Hello Button</Button>)
