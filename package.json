@@ -2,6 +2,7 @@
   "name": "kana-ui",
   "scripts": {
     "new": "echo todo copy from template",
+    "dev": "nodemon --watch src --exec yarn build",
     "build": "babel src --out-dir dist",
     "storybook": "start-storybook"
   },
@@ -17,6 +18,7 @@
     "babel-plugin-styled-components": "^1.10.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.0",
+    "nodemon": "^1.19.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "styled-components": "^4.2.0"
