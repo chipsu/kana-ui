@@ -15,7 +15,11 @@ export const Dropdown = ({ tag, contentTag, children, content, ...props }) => {
 
 Dropdown.propTypes = {
   className: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.element,
+  ]).isRequired,
   content: PropTypes.element.isRequired,
 }
 

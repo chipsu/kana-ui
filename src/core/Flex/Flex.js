@@ -1,29 +1,45 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { getProps, getCss, propTypes, defaultProps } from '../../utils'
+
+// Not sure about this, but defining stuff like this in `` is ugly
+const cssProps = {
+  wrap: (theme, value) => {
+    return value && `flex-wrap: ${value === true ? 'wrap' : value};`
+  },
+}
 
 export const Flex = ({ tag, children, ...props }) => {
   const Wrapper = tag
-  return <Wrapper {...props}>{children}</Wrapper>
+  return <Wrapper {...getProps(props, cssProps)}>{children}</Wrapper>
+}
+
+Flex.propTypes = {
+  className: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.element,
+  ]).isRequired,
 }
 
 Flex.defaultProps = {
   tag: 'div',
 }
 
-export const StyledFlex = styled(({ wrap, theme, children, ...props }) => (
-  <Flex children={children} {...props} />
-))`
+export const StyledFlex = styled(Flex)`
   display: flex;
-  ${props =>
-    props.wrap && `flex-wrap: ${props.wrap === true ? 'wrap' : props.wrap}`}
+  ${props => getCss(props, cssProps)}
 `
 
 StyledFlex.propTypes = {
-  wrap: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  wrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  ...propTypes,
 }
 
 StyledFlex.defaultProps = {
   theme: {},
+  ...defaultProps,
 }
 
 export default StyledFlex

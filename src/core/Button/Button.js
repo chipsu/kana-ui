@@ -9,7 +9,11 @@ export const Button = ({ tag, children, ...props }) => {
 
 Button.propTypes = {
   className: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.element,
+  ]).isRequired,
 }
 
 Button.defaultProps = {
@@ -21,10 +25,11 @@ export const StyledButton = styled(
     <Button children={children} {...props} />
   )
 )`
+  --padding: ${props => props.theme.spacings[props.padding]};
   appearance: none;
   border: 2px solid papayawhip;
   background: ${props => props.theme.colors[props.background]};
-  padding: ${props => props.theme.spacings[props.padding]};
+  padding: var(--padding);
 `
 
 StyledButton.propTypes = {
@@ -32,6 +37,14 @@ StyledButton.propTypes = {
 }
 
 StyledButton.defaultProps = {
+  // I dont know, in theme or localTheme? Variations should be themable but defined in component.
+  _theme: {
+    variations: {
+      lg: {
+        padding: 'lg',
+      },
+    },
+  },
   background: 'primary',
   padding: 'md',
 }
