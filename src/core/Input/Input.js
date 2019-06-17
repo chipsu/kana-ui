@@ -1,4 +1,3 @@
-import { getComponentProps } from '../../utils'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -16,7 +15,9 @@ Input.defaultProps = {
 }
 
 export const StyledInput = styled(
-  ({ theme, background, padding, ...props }) => <Input {...props} />
+  ({ theme, background, padding, className, ...props }) => (
+    <Input className={className} {...props} />
+  )
 )`
   appearance: none;
   border: 2px solid papayawhip;

@@ -1,6 +1,6 @@
-import { getComponentProps } from '../../utils'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { propTypes, defaultProps, getThemeVars } from '../../utils'
 
 export const Button = ({ tag, children, ...props }) => {
   const Tag = tag
@@ -21,14 +21,14 @@ Button.defaultProps = {
 }
 
 export const StyledButton = styled(
-  ({ theme, background, padding, children, ...props }) => (
-    <Button children={children} {...props} />
+  ({ theme, background, bg, padding, className, children, ...props }) => (
+    <Button className={className} children={children} {...props} />
   )
 )`
-  --padding: ${props => props.theme.spacings[props.padding]};
+  ${props => getThemeVars(props)};
   appearance: none;
-  border: 2px solid papayawhip;
-  background: ${props => props.theme.colors[props.background]};
+  border: 2px solid var(--bg, inherit);
+  background: var(--bg, inherit);
   padding: var(--padding);
 `
 
@@ -37,15 +37,7 @@ StyledButton.propTypes = {
 }
 
 StyledButton.defaultProps = {
-  // I dont know, in theme or localTheme? Variations should be themable but defined in component.
-  _theme: {
-    variations: {
-      lg: {
-        padding: 'lg',
-      },
-    },
-  },
-  background: 'primary',
+  bg: 'primary',
   padding: 'md',
 }
 

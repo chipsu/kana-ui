@@ -1,4 +1,3 @@
-import { getComponentProps } from '../../utils'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -27,21 +26,24 @@ Dropdown.defaultProps = {
   tag: 'div',
 }
 
-const StyledDropdownContentTag = styled(({ children, ...props }) => (
-  <div children={children} {...props} />
+const StyledDropdownContentTag = styled(({ className, children, ...props }) => (
+  <div className={className} children={children} {...props} />
 ))`
   background: red;
   padding: 20px;
   border: 5px solid pink;
 `
 
-export const StyledDropdown = styled(({ children, theme, ...props }) => (
-  <Dropdown
-    children={children}
-    contentTag={StyledDropdownContentTag}
-    {...props}
-  />
-))`
+export const StyledDropdown = styled(
+  ({ className, children, theme, ...props }) => (
+    <Dropdown
+      className={className}
+      children={children}
+      contentTag={StyledDropdownContentTag}
+      {...props}
+    />
+  )
+)`
   cursor: pointer;
   position: relative;
   ${StyledDropdownContentTag} {

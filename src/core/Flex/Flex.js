@@ -1,17 +1,10 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { getProps, getCss, propTypes, defaultProps } from '../../utils'
-
-// Not sure about this, but defining stuff like this in `` is ugly
-const cssProps = {
-  wrap: (theme, value) => {
-    return value && `flex-wrap: ${value === true ? 'wrap' : value};`
-  },
-}
+import { propTypes, defaultProps, getThemeVars } from '../../utils'
 
 export const Flex = ({ tag, children, ...props }) => {
-  const Wrapper = tag
-  return <Wrapper {...getProps(props, cssProps)}>{children}</Wrapper>
+  const Tag = tag
+  return <Tag {...props}>{children}</Tag>
 }
 
 Flex.propTypes = {
@@ -27,9 +20,16 @@ Flex.defaultProps = {
   tag: 'div',
 }
 
-export const StyledFlex = styled(Flex)`
+export const StyledFlex = styled(
+  ({ theme, bg, wrap, className, children, ...props }) => (
+    <Flex className={className} children={children} {...props} />
+  )
+)`
+  ${props => getThemeVars(props)}
   display: flex;
-  ${props => getCss(props, cssProps)}
+  ${props =>
+    props.wrap && `flex-wrap: ${props.wrap === true ? 'wrap' : props.wrap};`}
+  background: var(--bg, inherit);
 `
 
 StyledFlex.propTypes = {
@@ -38,7 +38,6 @@ StyledFlex.propTypes = {
 }
 
 StyledFlex.defaultProps = {
-  theme: {},
   ...defaultProps,
 }
 
